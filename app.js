@@ -137,9 +137,8 @@ function initAnimations() {
     });
 
     // ---- Work/Projects section ----
-    gsap.from('.work__card', {
-        opacity: 0, y: 35, duration: 0.55, stagger: 0.1, ease: 'power3.out',
-        scrollTrigger: { trigger: '.work', start: 'top 88%' }
+    document.querySelectorAll('.work__card').forEach((card, i) => {
+        card.style.animationDelay = (i * 0.1) + 's';
     });
 
     // ---- Contact section ----
