@@ -1,218 +1,145 @@
-// ============ CODE RAIN WITH CURSOR HOLE ============
-const canvas = document.getElementById('matrix-rain');
+// ==================== BACKGROUND CODE RAIN ====================
+const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 
-const codeTokens = ['const','let','var','function','return','if','else','for','while','class','import','export','default','async','await','try','catch','throw','new','this','void','delete','typeof','instanceof','true','false','null','undefined','switch','case','break','continue','do','yield','static','get','set','extends','super','0','1','{}','[]','()','=>','===','!==','&&','||','!','+','-','*','/','%','**','++','--','=','+=','-=','*=','/='];
+const tokens = ['const','let','var','function','return','if','else','for','while','class','import','export','async','await','try','catch','true','false','null','undefined','=>','===','!==','&&','||','0','1','{}','[]','()'];
 
-let columns = [];
-let mouseX = -9999;
-let mouseY = -9999;
-const holeRadius = 140;
-const fontSize = 15;
-let lastTime = 0;
-const fps = 28;
+let drops = [];
+let mouse = { x: -999, y: -999 };
+let canvasW, canvasH;
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initColumns();
-}
-
-function initColumns() {
-    const count = Math.floor(canvas.width / (fontSize * 2.5));
-    columns = [];
-    for (let i = 0; i < count; i++) {
-        columns.push(createColumn(i));
-    }
-}
-
-function createColumn(index) {
-    const x = index * (canvas.width / Math.floor(canvas.width / (fontSize * 2.5)));
-    return {
-        x: x,
-        y: Math.random() * -canvas.height,
-        speed: 0.3 + Math.random() * 1.8,
-        opacity: 0.2 + Math.random() * 0.5,
-        words: generateWords(),
-        headWord: -1
-    };
-}
-
-function generateWords() {
-    const count = 3 + Math.floor(Math.random() * 5);
-    const words = [];
-    for (let i = 0; i < count; i++) {
-        words.push({
-            text: codeTokens[Math.floor(Math.random() * codeTokens.length)],
-            gap: 10 + Math.floor(Math.random() * 20)
+function resize() {
+    canvasW = canvas.width = window.innerWidth;
+    canvasH = canvas.height = window.innerHeight;
+    drops = [];
+    const cols = Math.floor(canvasW / 80);
+    for (let i = 0; i < cols; i++) {
+        drops.push({
+            x: Math.random() * canvasW,
+            y: Math.random() * canvasH * -1,
+            speed: 0.2 + Math.random() * 0.6,
+            text: tokens[Math.floor(Math.random() * tokens.length)],
+            alpha: 0.03 + Math.random() * 0.06,
+            size: 11 + Math.floor(Math.random() * 3)
         });
     }
-    return words;
 }
 
-function draw(timestamp) {
-    if (timestamp - lastTime < 1000 / fps) {
-        requestAnimationFrame(draw);
-        return;
-    }
-    lastTime = timestamp;
+function drawRain() {
+    ctx.fillStyle = 'rgba(9, 9, 11, 0.15)';
+    ctx.fillRect(0, 0, canvasW, canvasH);
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < drops.length; i++) {
+        const d = drops[i];
+        d.y += d.speed;
 
-    const cw = canvas.width;
-    const ch = canvas.height;
-    const dx = mouseX;
-    const dy = mouseY;
-    const hr = holeRadius;
-    const hr2 = hr * hr;
-
-    ctx.font = `${fontSize}px "Courier New", monospace`;
-
-    for (let c = 0; c < columns.length; c++) {
-        const col = columns[c];
-        col.y += col.speed;
-
-        if (col.y > ch + 100) {
-            col.y = -100 - Math.random() * 300;
-            col.speed = 0.3 + Math.random() * 1.8;
-            col.words = generateWords();
+        if (d.y > canvasH + 50) {
+            d.y = -50 - Math.random() * 200;
+            d.x = Math.random() * canvasW;
+            d.text = tokens[Math.floor(Math.random() * tokens.length)];
         }
 
-        let drawY = col.y;
-        for (let w = 0; w < col.words.length; w++) {
-            const word = col.words[w];
-            const wordY = drawY;
+        const dx = d.x - mouse.x;
+        const dy = d.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const hole = 160;
 
-            const wordWidth = word.text.length * fontSize;
-            const wordCenterX = col.x + wordWidth / 2;
-            const wordCenterY = wordY;
+        if (dist < hole) continue;
 
-            const distX = wordCenterX - dx;
-            const distY = wordCenterY - dy;
-            const distSq = distX * distX + distY * distY;
-
-            // Push characters away from cursor
-            let pushX = 0;
-            let pushY = 0;
-            if (distSq < hr2 && distSq > 0) {
-                const dist = Math.sqrt(distSq);
-                const force = (1 - dist / hr) * 40;
-                pushX = (distX / dist) * force;
-                pushY = (distY / dist) * force;
-            }
-
-            // Skip word entirely if in the hole
-            if (distSq < hr2 * 0.3) {
-                drawY += word.gap + fontSize;
-                continue;
-            }
-
-            const isHead = w === 0;
-            const fade = 1 - (w / col.words.length) * 0.6;
-
-            if (isHead) {
-                ctx.globalAlpha = 0.95;
-                ctx.fillStyle = '#ffffff';
-            } else {
-                ctx.globalAlpha = col.opacity * fade;
-                // Vary color between blue-ish and green-ish code tones
-                const hue = 220 + (w * 15);
-                ctx.fillStyle = `hsl(${hue}, 60%, 65%)`;
-            }
-
-            ctx.fillText(word.text, col.x + pushX, wordY + pushY);
-            drawY += word.gap + fontSize;
+        let pushX = 0;
+        let pushY = 0;
+        if (dist < hole * 2 && dist > 0) {
+            const force = (1 - dist / (hole * 2)) * 20;
+            pushX = (dx / dist) * force;
+            pushY = (dy / dist) * force;
         }
+
+        ctx.globalAlpha = d.alpha;
+        ctx.fillStyle = '#6366f1';
+        ctx.font = `${d.size}px "JetBrains Mono", monospace`;
+        ctx.fillText(d.text, d.x + pushX, d.y + pushY);
     }
 
     ctx.globalAlpha = 1;
-
-    // Subtle glow around cursor hole
-    if (dx > 0 && dy > 0) {
-        const gradient = ctx.createRadialGradient(dx, dy, 0, dx, dy, hr);
-        gradient.addColorStop(0, 'rgba(94, 106, 210, 0.15)');
-        gradient.addColorStop(0.6, 'rgba(94, 106, 210, 0.05)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(dx, dy, hr, 0, Math.PI * 2);
-        ctx.fill();
-    }
-
-    requestAnimationFrame(draw);
+    requestAnimationFrame(drawRain);
 }
 
-document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-document.addEventListener('mouseleave', () => { mouseX = -9999; mouseY = -9999; });
-document.addEventListener('touchmove', (e) => { mouseX = e.touches[0].clientX; mouseY = e.touches[0].clientY; }, { passive: true });
-document.addEventListener('touchend', () => { mouseX = -9999; mouseY = -9999; });
+document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+document.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+document.addEventListener('touchmove', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }, { passive: true });
+document.addEventListener('touchend', () => { mouse.x = -999; mouse.y = -999; });
 
-// ============ GSAP ============
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(ScrollToPlugin);
+// ==================== GSAP ====================
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function initProgressBar() {
-    gsap.to('.progress-bar', { width: '100%', ease: 'none', scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
-}
+function initAnimations() {
+    // Hero
+    const hero = gsap.timeline({ delay: 0.3 });
+    hero.from('.hero__tag', { opacity: 0, y: 15, duration: 0.5 });
+    hero.from('.hero__title', { opacity: 0, y: 25, duration: 0.6, ease: 'power3.out' }, '-=0.2');
+    hero.from('.hero__desc', { opacity: 0, y: 15, duration: 0.4 }, '-=0.2');
+    hero.from('.hero__actions', { opacity: 0, y: 15, duration: 0.4 }, '-=0.15');
+    hero.from('.hero__meta', { opacity: 0, y: 10, duration: 0.4 }, '-=0.1');
 
-function initHeroAnimations() {
-    const tl = gsap.timeline({ delay: 0.4 });
-    tl.from('.hero-greeting', { opacity: 0, y: 20, duration: 0.5, ease: 'power3.out' });
-    tl.from('.hero-name .anim-split', { opacity: 0, y: 40, rotateX: -20, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, '-=0.2');
-    tl.from('.hero-role', { opacity: 0, y: 20, duration: 0.5, ease: 'power3.out' }, '-=0.3');
-    tl.from('.hero-desc', { opacity: 0, y: 15, duration: 0.4, ease: 'power2.out' }, '-=0.2');
-    tl.from('.hero-contact', { opacity: 0, y: 15, duration: 0.4, ease: 'power2.out' }, '-=0.2');
-    tl.from('.hero-actions', { opacity: 0, y: 15, duration: 0.4, ease: 'power2.out' }, '-=0.2');
-    tl.from('.scroll-indicator', { opacity: 0, y: 15, duration: 0.4, ease: 'power2.out' }, '-=0.1');
-}
+    // Sections
+    const sections = ['.about', '.skills', '.work', '.contact'];
+    const targets = [
+        ['.about__lead', '.about__text', '.about__stats'],
+        ['.skill-group'],
+        ['.work__card'],
+        ['.contact__lead', '.contact__actions', '.contact__info']
+    ];
 
-function initScrollAnimations() {
-    gsap.from('#about .section-label', { opacity: 0, y: 25, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '#about', start: 'top 80%', toggleActions: 'play none none reverse' } });
-    gsap.from('.about-headline', { opacity: 0, y: 30, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: '.about-headline', start: 'top 85%', toggleActions: 'play none none reverse' } });
-    gsap.from('.about-desc', { opacity: 0, y: 20, duration: 0.5, stagger: 0.12, ease: 'power2.out', scrollTrigger: { trigger: '.about-desc', start: 'top 88%', toggleActions: 'play none none reverse' } });
-    gsap.from('.stat-card', { opacity: 0, x: 40, duration: 0.5, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: '.about-stats', start: 'top 85%', toggleActions: 'play none none reverse' } });
-
-    gsap.from('#skills .section-label', { opacity: 0, y: 25, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '#skills', start: 'top 80%', toggleActions: 'play none none reverse' } });
-    gsap.from('.skill-column', { opacity: 0, y: 40, duration: 0.6, stagger: 0.12, ease: 'power3.out', scrollTrigger: { trigger: '.skills-showcase', start: 'top 85%', toggleActions: 'play none none reverse' } });
-
-    gsap.from('#projects .section-label', { opacity: 0, y: 25, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '#projects', start: 'top 80%', toggleActions: 'play none none reverse' } });
-    gsap.from('.project-item', { opacity: 0, y: 30, x: -20, duration: 0.5, stagger: 0.08, ease: 'power3.out', scrollTrigger: { trigger: '.projects-showcase', start: 'top 85%', toggleActions: 'play none none reverse' } });
-
-    gsap.from('#contact .section-label', { opacity: 0, y: 25, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '#contact', start: 'top 80%', toggleActions: 'play none none reverse' } });
-    gsap.from('.contact-headline', { opacity: 0, y: 30, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: '.contact-headline', start: 'top 85%', toggleActions: 'play none none reverse' } });
-    gsap.from('.contact-desc', { opacity: 0, y: 20, duration: 0.5, ease: 'power2.out', scrollTrigger: { trigger: '.contact-desc', start: 'top 88%', toggleActions: 'play none none reverse' } });
-    gsap.from('.contact-actions', { opacity: 0, y: 20, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '.contact-actions', start: 'top 88%', toggleActions: 'play none none reverse' } });
-    gsap.from('.info-card', { opacity: 0, x: 30, duration: 0.5, stagger: 0.08, ease: 'power3.out', scrollTrigger: { trigger: '.contact-right', start: 'top 85%', toggleActions: 'play none none reverse' } });
-}
-
-function initMagneticButtons() {
-    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            gsap.to(btn, { x: (e.clientX - rect.left - rect.width / 2) * 0.2, y: (e.clientY - rect.top - rect.height / 2) * 0.2, duration: 0.3, ease: 'power2.out' });
+    document.querySelectorAll('.section').forEach((section, i) => {
+        gsap.from(section.querySelector('.section__num'), {
+            opacity: 0, y: 10, duration: 0.4,
+            scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none reverse' }
         });
-        btn.addEventListener('mouseleave', () => {
-            gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.5)' });
+        gsap.from(section.querySelector('.section__title'), {
+            opacity: 0, y: 15, duration: 0.5,
+            scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none reverse' }
+        });
+    });
+
+    gsap.from('.about__lead', { opacity: 0, y: 20, duration: 0.5, scrollTrigger: { trigger: '.about__lead', start: 'top 88%' } });
+    gsap.from('.about__text', { opacity: 0, y: 20, duration: 0.5, delay: 0.1, scrollTrigger: { trigger: '.about__text', start: 'top 88%' } });
+    gsap.from('.stat', { opacity: 0, y: 20, duration: 0.4, stagger: 0.08, scrollTrigger: { trigger: '.about__stats', start: 'top 88%' } });
+
+    gsap.from('.skill-group', { opacity: 0, y: 20, duration: 0.4, stagger: 0.08, scrollTrigger: { trigger: '.skills', start: 'top 85%' } });
+
+    gsap.from('.work__card', { opacity: 0, y: 20, duration: 0.4, stagger: 0.06, scrollTrigger: { trigger: '.work', start: 'top 85%' } });
+
+    gsap.from('.contact__lead', { opacity: 0, y: 20, duration: 0.5, scrollTrigger: { trigger: '.contact__lead', start: 'top 88%' } });
+    gsap.from('.contact__actions', { opacity: 0, y: 15, duration: 0.4, scrollTrigger: { trigger: '.contact__actions', start: 'top 90%' } });
+    gsap.from('.contact__info', { opacity: 0, y: 15, duration: 0.4, stagger: 0.06, scrollTrigger: { trigger: '.contact__right', start: 'top 88%' } });
+}
+
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+                gsap.to(window, { duration: 0.8, scrollTo: { y: target, offsetY: 56 }, ease: 'power2.inOut' });
+            }
         });
     });
 }
 
 function initNavHighlight() {
-    const sections = document.querySelectorAll('.slide[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    sections.forEach(section => {
+    const sections = document.querySelectorAll('.section[id]');
+    const links = document.querySelectorAll('.nav__links a');
+    sections.forEach(sec => {
         ScrollTrigger.create({
-            trigger: section,
+            trigger: sec,
             start: 'top center',
             end: 'bottom center',
-            onToggle: (self) => {
+            onToggle: self => {
                 if (self.isActive) {
-                    const id = section.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.style.color = link.getAttribute('href') === `#${id}` ? 'var(--foreground)' : '';
+                    links.forEach(l => {
+                        l.style.color = l.getAttribute('href') === `#${sec.id}` ? 'var(--text)' : '';
                     });
                 }
             }
@@ -220,35 +147,15 @@ function initNavHighlight() {
     });
 }
 
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                gsap.to(window, { duration: 1.0, scrollTo: { y: target, offsetY: 64 }, ease: 'power3.inOut' });
-            }
-        });
-    });
-}
-
-// ============ INIT ============
+// ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
-    resizeCanvas();
-    requestAnimationFrame(draw);
-    window.addEventListener('resize', resizeCanvas);
+    resize();
+    requestAnimationFrame(drawRain);
+    window.addEventListener('resize', resize);
 
-    if (prefersReducedMotion) {
-        gsap.set('[class*="anim-"]', { opacity: 1, y: 0, x: 0, rotateX: 0 });
-        initProgressBar();
-        initSmoothScroll();
-        return;
-    }
+    if (reducedMotion) return;
 
-    initHeroAnimations();
-    initScrollAnimations();
-    initMagneticButtons();
-    initNavHighlight();
-    initProgressBar();
+    initAnimations();
     initSmoothScroll();
+    initNavHighlight();
 });

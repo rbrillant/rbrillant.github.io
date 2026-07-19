@@ -4,316 +4,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MURANGIRA RICHARD BRILLANT | Full-Stack Developer</title>
-    <meta name="description" content="Full-Stack Developer portfolio - React, Node.js, Express.js">
+    <meta name="description" content="Full-Stack Developer portfolio - React, Node.js, Express.js - Kigali, Rwanda">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Matrix Code Rain Canvas -->
-    <canvas id="matrix-rain" aria-hidden="true"></canvas>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-    <!-- Content Wrapper - above canvas -->
-    <div class="content-wrapper">
-        <!-- Navigation -->
-        <nav class="nav" role="navigation" aria-label="Main navigation">
-            <div class="nav-inner">
-                <a href="#hero" class="nav-logo" aria-label="Home">RB.</a>
-                <div class="nav-links">
-                    <a href="#hero">Home</a>
+    <div class="site">
+        <nav class="nav">
+            <div class="nav__inner">
+                <a href="#" class="nav__logo">rbrillant<span class="nav__dot">.</span></a>
+                <div class="nav__links">
                     <a href="#about">About</a>
                     <a href="#skills">Skills</a>
-                    <a href="#projects">Projects</a>
+                    <a href="#work">Work</a>
                     <a href="#contact">Contact</a>
                 </div>
             </div>
         </nav>
 
-        <!-- Slide Progress Indicator -->
-        <div class="slide-progress" aria-hidden="true">
-            <div class="progress-bar"></div>
-        </div>
-
-        <!-- Hero Slide -->
-        <section id="hero" class="slide hero-slide" data-slide="0">
-            <div class="slide-content">
-                <p class="hero-greeting">Hi, my name is</p>
-                <h1 class="hero-name">
-                    <span class="anim-split">MURANGIRA</span>
-                    <span class="anim-split">RICHARD</span>
-                    <span class="anim-split accent-text">BRILLANT.</span>
-                </h1>
-                <h2 class="hero-role">Full-Stack Web Developer.</h2>
-                <p class="hero-desc">
-                    Passionate and results-driven developer with experience building responsive
-                    web applications using React.js, Node.js, Express.js, and modern tools.
-                </p>
-                <div class="hero-contact">
+        <header id="hero" class="hero">
+            <div class="container">
+                <p class="hero__tag">Full-Stack Developer</p>
+                <h1 class="hero__title">MURANGIRA RICHARD<br><span>BRILLANT</span></h1>
+                <p class="hero__desc">I build responsive web applications with React, Node.js, and modern tools. Based in Kigali, Rwanda.</p>
+                <div class="hero__actions">
+                    <a href="#work" class="btn btn--primary">View Projects</a>
+                    <a href="#contact" class="btn btn--outline">Get In Touch</a>
+                </div>
+                <div class="hero__meta">
                     <span>Kigali, Rwanda</span>
-                    <span>+250 790 382 906</span>
+                    <span class="hero__sep"></span>
                     <a href="mailto:murangirabrillant5@gmail.com">murangirabrillant5@gmail.com</a>
-                </div>
-                <div class="hero-actions">
-                    <a href="#projects" class="btn-primary">
-                        <span>View My Work</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </a>
-                    <a href="mailto:murangirabrillant5@gmail.com" class="btn-secondary">Get In Touch</a>
+                    <span class="hero__sep"></span>
+                    <span>+250 790 382 906</span>
                 </div>
             </div>
-            <div class="scroll-indicator" aria-hidden="true">
-                <div class="scroll-mouse">
-                    <div class="scroll-wheel"></div>
-                </div>
-                <span>Scroll Down</span>
-            </div>
-        </section>
+        </header>
 
-        <!-- About Slide -->
-        <section id="about" class="slide slide-about" data-slide="1">
-            <div class="slide-content">
-                <h2 class="section-label">01 / About</h2>
-                <div class="about-grid">
-                    <div class="about-text">
-                        <p class="about-headline">
-                            Building digital experiences that <span class="accent-text">make a difference</span>.
-                        </p>
-                        <p class="about-desc">
-                            Passionate and results-driven Full-Stack Web Developer with experience building
-                            responsive web applications using React.js, JavaScript, Node.js, Express.js,
-                            MySQL, Tailwind CSS, Vite, and Supabase.
-                        </p>
-                        <p class="about-desc">
-                            Skilled in frontend and backend development, REST APIs, database integration,
-                            UI/UX, Git/GitHub, and AI-assisted software development.
-                        </p>
+        <section id="about" class="section">
+            <div class="container">
+                <span class="section__num">01</span>
+                <h2 class="section__title">About</h2>
+                <div class="about">
+                    <div class="about__text">
+                        <p class="about__lead">I'm a developer who cares about building things that work well and look clean.</p>
+                        <p>I specialize in frontend and backend development using React.js, Node.js, Express.js, and modern tooling. I focus on writing maintainable code, building reusable components, and shipping production-ready applications.</p>
                     </div>
-                    <div class="about-stats">
-                        <div class="stat-card">
-                            <span class="stat-number">5+</span>
-                            <span class="stat-label">Projects Completed</span>
+                    <div class="about__stats">
+                        <div class="stat">
+                            <span class="stat__num">5+</span>
+                            <span class="stat__label">Projects Built</span>
                         </div>
-                        <div class="stat-card">
-                            <span class="stat-number">2</span>
-                            <span class="stat-label">Live Productions</span>
+                        <div class="stat">
+                            <span class="stat__num">2</span>
+                            <span class="stat__label">Live Apps</span>
                         </div>
-                        <div class="stat-card">
-                            <span class="stat-number">10+</span>
-                            <span class="stat-label">Technologies</span>
+                        <div class="stat">
+                            <span class="stat__num">10+</span>
+                            <span class="stat__label">Technologies</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Slide -->
-        <section id="skills" class="slide slide-skills" data-slide="2">
-            <div class="slide-content">
-                <h2 class="section-label">02 / Skills</h2>
-                <div class="skills-showcase">
-                    <div class="skill-column">
-                        <div class="skill-category">
-                            <h3>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                                Frontend
-                            </h3>
-                            <div class="skill-pills">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>JavaScript</span>
-                                <span>TypeScript</span>
-                                <span>React.js</span>
-                                <span>Vite</span>
-                                <span>Tailwind CSS</span>
-                                <span>Bootstrap</span>
-                            </div>
+        <section id="skills" class="section">
+            <div class="container">
+                <span class="section__num">02</span>
+                <h2 class="section__title">Skills</h2>
+                <div class="skills">
+                    <div class="skill-group">
+                        <h3 class="skill-group__title">Frontend</h3>
+                        <div class="skill-group__list">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>TypeScript</span>
+                            <span>React.js</span>
+                            <span>Vite</span>
+                            <span>Tailwind CSS</span>
+                            <span>Bootstrap</span>
                         </div>
                     </div>
-                    <div class="skill-column">
-                        <div class="skill-category">
-                            <h3>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                                Backend
-                            </h3>
-                            <div class="skill-pills">
-                                <span>Node.js</span>
-                                <span>Express.js</span>
-                                <span>REST APIs</span>
-                                <span>Authentication</span>
-                                <span>CRUD</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h3>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                                Databases
-                            </h3>
-                            <div class="skill-pills">
-                                <span>MySQL</span>
-                                <span>Supabase</span>
-                                <span>PostgreSQL</span>
-                            </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group__title">Backend</h3>
+                        <div class="skill-group__list">
+                            <span>Node.js</span>
+                            <span>Express.js</span>
+                            <span>REST APIs</span>
+                            <span>Authentication</span>
+                            <span>CRUD</span>
                         </div>
                     </div>
-                    <div class="skill-column">
-                        <div class="skill-category">
-                            <h3>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                                Tools
-                            </h3>
-                            <div class="skill-pills">
-                                <span>Git</span>
-                                <span>GitHub</span>
-                                <span>VS Code</span>
-                                <span>Postman</span>
-                                <span>Figma</span>
-                            </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group__title">Databases</h3>
+                        <div class="skill-group__list">
+                            <span>MySQL</span>
+                            <span>Supabase</span>
+                            <span>PostgreSQL</span>
                         </div>
-                        <div class="skill-category">
-                            <h3>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                Deployment
-                            </h3>
-                            <div class="skill-pills">
-                                <span>Vercel</span>
-                                <span>Netlify</span>
-                                <span>GitHub Pages</span>
-                            </div>
+                    </div>
+                    <div class="skill-group">
+                        <h3 class="skill-group__title">Tools & Deploy</h3>
+                        <div class="skill-group__list">
+                            <span>Git</span>
+                            <span>GitHub</span>
+                            <span>VS Code</span>
+                            <span>Postman</span>
+                            <span>Figma</span>
+                            <span>Vercel</span>
+                            <span>Netlify</span>
+                            <span>GitHub Pages</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Slide -->
-        <section id="projects" class="slide slide-projects" data-slide="3">
-            <div class="slide-content">
-                <h2 class="section-label">03 / Projects</h2>
-                <div class="projects-showcase">
-                    <a href="https://primepillarengineering.com" target="_blank" class="project-item">
-                        <div class="project-number">01</div>
-                        <div class="project-info">
-                            <h3>Prime Pillar Engineering</h3>
-                            <p>Production website for a security & engineering company. Responsive React interfaces, reusable components, REST API integration, MySQL database integration.</p>
-                            <div class="project-tech">
-                                <span>React</span>
-                                <span>Node.js</span>
-                                <span>REST API</span>
-                                <span>MySQL</span>
-                                <span>Vercel</span>
-                            </div>
+        <section id="work" class="section">
+            <div class="container">
+                <span class="section__num">03</span>
+                <h2 class="section__title">Projects</h2>
+                <div class="work">
+                    <a href="https://primepillarengineering.com" target="_blank" class="work__card">
+                        <div class="work__card-head">
+                            <span class="work__card-num">01</span>
+                            <svg class="work__card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                         </div>
-                        <div class="project-arrow">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                        <h3 class="work__card-title">Prime Pillar Engineering</h3>
+                        <p class="work__card-desc">Production website for a security & engineering company. Built with responsive React interfaces, reusable components, REST API integration, and MySQL database.</p>
+                        <div class="work__card-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>REST API</span>
+                            <span>MySQL</span>
+                            <span>Vercel</span>
                         </div>
                     </a>
 
-                    <a href="https://innovetancy.com" target="_blank" class="project-item">
-                        <div class="project-number">02</div>
-                        <div class="project-info">
-                            <h3>Innoveta Platform</h3>
-                            <p>Production website under active development. Responsive React interfaces, reusable components, REST API integration, MySQL database integration.</p>
-                            <div class="project-tech">
-                                <span>React</span>
-                                <span>Node.js</span>
-                                <span>REST API</span>
-                                <span>MySQL</span>
-                            </div>
+                    <a href="https://innovetancy.com" target="_blank" class="work__card">
+                        <div class="work__card-head">
+                            <span class="work__card-num">02</span>
+                            <svg class="work__card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                         </div>
-                        <div class="project-arrow">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                        <h3 class="work__card-title">Innoveta Platform</h3>
+                        <p class="work__card-desc">Production website under active development. Responsive React interfaces, reusable components, REST API integration, and MySQL database.</p>
+                        <div class="work__card-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>REST API</span>
+                            <span>MySQL</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/rbrillant/careers-connect" target="_blank" class="project-item">
-                        <div class="project-number">03</div>
-                        <div class="project-info">
-                            <h3>Careers Connect</h3>
-                            <p>Recruitment platform currently under development. Responsive React interfaces, reusable components, REST API integration.</p>
-                            <div class="project-tech">
-                                <span>React</span>
-                                <span>Node.js</span>
-                                <span>REST API</span>
-                                <span>MySQL</span>
-                            </div>
+                    <a href="https://github.com/rbrillant/careers-connect" target="_blank" class="work__card">
+                        <div class="work__card-head">
+                            <span class="work__card-num">03</span>
+                            <svg class="work__card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                         </div>
-                        <div class="project-arrow">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                        <h3 class="work__card-title">Careers Connect</h3>
+                        <p class="work__card-desc">Recruitment platform under development. Responsive React interfaces, reusable components, and REST API integration.</p>
+                        <div class="work__card-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>REST API</span>
+                            <span>MySQL</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/rbrillant/car-marketplace" target="_blank" class="project-item">
-                        <div class="project-number">04</div>
-                        <div class="project-info">
-                            <h3>Car Marketplace</h3>
-                            <p>Vehicle marketplace currently under development. Responsive React interfaces, reusable components, REST API integration.</p>
-                            <div class="project-tech">
-                                <span>React</span>
-                                <span>Node.js</span>
-                                <span>REST API</span>
-                                <span>MySQL</span>
-                            </div>
+                    <a href="https://github.com/rbrillant/car-marketplace" target="_blank" class="work__card">
+                        <div class="work__card-head">
+                            <span class="work__card-num">04</span>
+                            <svg class="work__card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                         </div>
-                        <div class="project-arrow">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                        <h3 class="work__card-title">Car Marketplace</h3>
+                        <p class="work__card-desc">Vehicle marketplace under development. Responsive React interfaces, reusable components, and REST API integration.</p>
+                        <div class="work__card-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>REST API</span>
+                            <span>MySQL</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/rbrillant/car-dealership-management" target="_blank" class="project-item">
-                        <div class="project-number">05</div>
-                        <div class="project-info">
-                            <h3>Car Dealership Management</h3>
-                            <p>Dealership management platform currently under development. Responsive React interfaces, reusable components, REST API integration.</p>
-                            <div class="project-tech">
-                                <span>React</span>
-                                <span>Node.js</span>
-                                <span>REST API</span>
-                                <span>MySQL</span>
-                            </div>
+                    <a href="https://github.com/rbrillant/car-dealership-management" target="_blank" class="work__card">
+                        <div class="work__card-head">
+                            <span class="work__card-num">05</span>
+                            <svg class="work__card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                         </div>
-                        <div class="project-arrow">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                        <h3 class="work__card-title">Car Dealership Management</h3>
+                        <p class="work__card-desc">Dealership management platform under development. Responsive React interfaces, reusable components, and REST API integration.</p>
+                        <div class="work__card-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>REST API</span>
+                            <span>MySQL</span>
                         </div>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Education & Contact Slide -->
-        <section id="contact" class="slide slide-contact" data-slide="4">
-            <div class="slide-content">
-                <h2 class="section-label">04 / Contact</h2>
-                <div class="contact-grid">
-                    <div class="contact-left">
-                        <p class="contact-headline">
-                            Let's build something <span class="accent-text">amazing</span> together.
-                        </p>
-                        <p class="contact-desc">
-                            I'm currently open to opportunities. Feel free to reach out.
-                        </p>
-                        <div class="contact-actions">
-                            <a href="mailto:murangirabrillant5@gmail.com" class="btn-primary btn-large">
-                                <span>Email Me</span>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            </a>
-                            <a href="https://github.com/rbrillant" target="_blank" class="btn-secondary btn-large">GitHub</a>
+        <section id="contact" class="section">
+            <div class="container">
+                <span class="section__num">04</span>
+                <h2 class="section__title">Contact</h2>
+                <div class="contact">
+                    <div class="contact__left">
+                        <p class="contact__lead">I'm open to opportunities. Let's talk.</p>
+                        <div class="contact__actions">
+                            <a href="mailto:murangirabrillant5@gmail.com" class="btn btn--primary">Email Me</a>
+                            <a href="https://github.com/rbrillant" target="_blank" class="btn btn--outline">GitHub</a>
                         </div>
                     </div>
-                    <div class="contact-right">
-                        <div class="info-card">
-                            <h3>Education</h3>
+                    <div class="contact__right">
+                        <div class="contact__info">
+                            <h4>Education</h4>
                             <p>High School Diploma - Software Development</p>
                         </div>
-                        <div class="info-card">
-                            <h3>Languages</h3>
-                            <div class="lang-pills">
-                                <span>English</span>
-                                <span>Kinyarwanda</span>
-                            </div>
+                        <div class="contact__info">
+                            <h4>Languages</h4>
+                            <p>English, Kinyarwanda</p>
                         </div>
-                        <div class="info-card">
-                            <h3>Location</h3>
+                        <div class="contact__info">
+                            <h4>Location</h4>
                             <p>Kigali, Rwanda</p>
                         </div>
                     </div>
@@ -321,15 +239,13 @@
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="footer">
             <div class="container">
-                <p>&copy; 2026 MURANGIRA RICHARD BRILLANT. All rights reserved.</p>
+                <p>&copy; 2026 MURANGIRA RICHARD BRILLANT</p>
             </div>
         </footer>
     </div>
 
-    <!-- GSAP + Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
