@@ -7,8 +7,7 @@
 }
 
 :root {
-    --bg-deep: #020203;
-    --bg-base: #050506;
+    --bg: #000000;
     --bg-elevated: #0a0a0c;
     --surface: rgba(255, 255, 255, 0.05);
     --surface-hover: rgba(255, 255, 255, 0.08);
@@ -29,16 +28,27 @@
 html {
     scroll-behavior: smooth;
     scrollbar-width: thin;
-    scrollbar-color: var(--accent) var(--bg-deep);
+    scrollbar-color: var(--accent) var(--bg);
 }
 
 body {
     font-family: var(--font-body);
-    background: var(--bg-deep);
+    background: var(--bg);
     color: var(--foreground);
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Matrix Code Rain Canvas */
+#matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* Reduced Motion */
@@ -50,73 +60,8 @@ body {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    .blob { animation: none !important; opacity: 0.3 !important; }
+    #matrix-rain { opacity: 0.3; }
     .scroll-wheel { animation: none !important; }
-}
-
-/* Ambient Background Blobs */
-.ambient-blobs {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.12;
-}
-
-.blob-1 {
-    width: 600px;
-    height: 600px;
-    background: var(--accent);
-    top: -200px;
-    right: -100px;
-    animation: blobFloat1 20s ease-in-out infinite;
-}
-
-.blob-2 {
-    width: 500px;
-    height: 500px;
-    background: var(--accent-secondary);
-    bottom: -150px;
-    left: -100px;
-    animation: blobFloat2 25s ease-in-out infinite;
-}
-
-.blob-3 {
-    width: 400px;
-    height: 400px;
-    background: #EC4899;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: blobFloat3 18s ease-in-out infinite;
-}
-
-@keyframes blobFloat1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(-80px, 60px) scale(1.1); }
-    66% { transform: translate(40px, -40px) scale(0.9); }
-}
-
-@keyframes blobFloat2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(60px, -80px) scale(1.15); }
-    66% { transform: translate(-50px, 30px) scale(0.85); }
-}
-
-@keyframes blobFloat3 {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    33% { transform: translate(-40%, -60%) scale(1.1); }
-    66% { transform: translate(-60%, -40%) scale(0.9); }
 }
 
 /* Navigation */
@@ -126,7 +71,7 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(2, 2, 3, 0.7);
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
 }
@@ -697,6 +642,8 @@ body {
     border-top: 1px solid var(--border);
     font-size: 0.8rem;
     color: var(--foreground-muted);
+    position: relative;
+    z-index: 1;
 }
 
 .container {
@@ -763,10 +710,6 @@ body {
     .contact-actions {
         flex-direction: column;
     }
-
-    .blob-1 { width: 300px; height: 300px; }
-    .blob-2 { width: 250px; height: 250px; }
-    .blob-3 { width: 200px; height: 200px; }
 }
 
 @media (max-width: 480px) {
