@@ -75,58 +75,129 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function initAnimations() {
-    // Hero
+    // ---- Hero entrance ----
     const hero = gsap.timeline({ delay: 0.3 });
-    hero.from('.hero__tag', { opacity: 0, y: 15, duration: 0.5 });
-    hero.from('.hero__title', { opacity: 0, y: 25, duration: 0.6, ease: 'power3.out' }, '-=0.2');
-    hero.from('.hero__desc', { opacity: 0, y: 15, duration: 0.4 }, '-=0.2');
-    hero.from('.hero__actions', { opacity: 0, y: 15, duration: 0.4 }, '-=0.15');
-    hero.from('.hero__meta', { opacity: 0, y: 10, duration: 0.4 }, '-=0.1');
+    hero.from('.hero__tag', { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out' });
+    hero.from('.hero__title', { opacity: 0, y: 40, duration: 0.7, ease: 'power3.out' }, '-=0.35');
+    hero.from('.hero__desc', { opacity: 0, y: 20, duration: 0.5, ease: 'power2.out' }, '-=0.3');
+    hero.from('.hero__actions .btn', { opacity: 0, y: 15, duration: 0.4, stagger: 0.1, ease: 'power2.out' }, '-=0.2');
+    hero.from('.hero__meta', { opacity: 0, y: 10, duration: 0.4, ease: 'power2.out' }, '-=0.15');
 
-    // Sections
-    const sections = ['.about', '.skills', '.work', '.contact'];
-    const targets = [
-        ['.about__lead', '.about__text', '.about__stats'],
-        ['.skill-group'],
-        ['.work__card'],
-        ['.contact__lead', '.contact__actions', '.contact__info']
-    ];
-
+    // ---- Each section: slide up + fade in on scroll ----
     document.querySelectorAll('.section').forEach((section, i) => {
-        gsap.from(section.querySelector('.section__num'), {
-            opacity: 0, y: 10, duration: 0.4,
-            scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none reverse' }
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: 'top 85%',
+                end: 'top 40%',
+                toggleActions: 'play none none none'
+            }
         });
-        gsap.from(section.querySelector('.section__title'), {
-            opacity: 0, y: 15, duration: 0.5,
-            scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none reverse' }
+
+        // Section number
+        tl.from(section.querySelector('.section__num'), {
+            opacity: 0, x: -20, duration: 0.4, ease: 'power2.out'
+        });
+
+        // Section title
+        tl.from(section.querySelector('.section__title'), {
+            opacity: 0, y: 25, duration: 0.5, ease: 'power3.out'
+        }, '-=0.2');
+
+        // Content container slides up
+        const container = section.querySelector('.container');
+        if (container) {
+            const children = container.querySelectorAll('.about, .skills, .work, .contact');
+            children.forEach(child => {
+                tl.from(child, {
+                    opacity: 0, y: 40, duration: 0.6, ease: 'power3.out'
+                }, '-=0.3');
+            });
+        }
+    });
+
+    // ---- About section ----
+    gsap.from('.about__lead', {
+        opacity: 0, y: 30, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: '.about__lead', start: 'top 90%' }
+    });
+    gsap.from('.about__text p', {
+        opacity: 0, y: 25, duration: 0.5, stagger: 0.12, ease: 'power2.out',
+        scrollTrigger: { trigger: '.about__text', start: 'top 90%' }
+    });
+    gsap.from('.stat', {
+        opacity: 0, y: 30, scale: 0.95, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: '.about__stats', start: 'top 90%' }
+    });
+
+    // ---- Skills section ----
+    gsap.from('.skill-group', {
+        opacity: 0, y: 30, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: '.skills', start: 'top 88%' }
+    });
+
+    // ---- Work/Projects section ----
+    gsap.from('.work__card', {
+        opacity: 0, y: 35, duration: 0.55, stagger: 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: '.work', start: 'top 88%' }
+    });
+
+    // ---- Contact section ----
+    gsap.from('.contact__lead', {
+        opacity: 0, y: 30, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: '.contact__lead', start: 'top 90%' }
+    });
+    gsap.from('.contact__actions .btn', {
+        opacity: 0, y: 20, duration: 0.4, stagger: 0.08, ease: 'power2.out',
+        scrollTrigger: { trigger: '.contact__actions', start: 'top 92%' }
+    });
+    gsap.from('.contact__info', {
+        opacity: 0, y: 20, duration: 0.4, stagger: 0.08, ease: 'power2.out',
+        scrollTrigger: { trigger: '.contact__right', start: 'top 90%' }
+    });
+
+    // ---- Parallax on section titles ----
+    gsap.utils.toArray('.section__title').forEach(title => {
+        gsap.to(title, {
+            y: -15,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: title,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1
+            }
         });
     });
 
-    gsap.from('.about__lead', { opacity: 0, y: 20, duration: 0.5, scrollTrigger: { trigger: '.about__lead', start: 'top 88%' } });
-    gsap.from('.about__text', { opacity: 0, y: 20, duration: 0.5, delay: 0.1, scrollTrigger: { trigger: '.about__text', start: 'top 88%' } });
-    gsap.from('.stat', { opacity: 0, y: 20, duration: 0.4, stagger: 0.08, scrollTrigger: { trigger: '.about__stats', start: 'top 88%' } });
-
-    gsap.from('.skill-group', { opacity: 0, y: 20, duration: 0.4, stagger: 0.08, scrollTrigger: { trigger: '.skills', start: 'top 85%' } });
-
-    gsap.fromTo('.work__card',
-        { opacity: 0, y: 25 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out',
-          scrollTrigger: { trigger: '.work', start: 'top 90%' } }
-    );
-
-    gsap.from('.contact__lead', { opacity: 0, y: 20, duration: 0.5, scrollTrigger: { trigger: '.contact__lead', start: 'top 88%' } });
-    gsap.from('.contact__actions', { opacity: 0, y: 15, duration: 0.4, scrollTrigger: { trigger: '.contact__actions', start: 'top 90%' } });
-    gsap.from('.contact__info', { opacity: 0, y: 15, duration: 0.4, stagger: 0.06, scrollTrigger: { trigger: '.contact__right', start: 'top 88%' } });
+    // ---- Nav blur intensity on scroll ----
+    gsap.to('.nav', {
+        borderBottomColor: 'rgba(99, 102, 241, 0.15)',
+        scrollTrigger: {
+            trigger: 'body',
+            start: '100px top',
+            end: '200px top',
+            scrub: true
+        }
+    });
 }
 
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             e.preventDefault();
-            const target = document.querySelector(a.getAttribute('href'));
+            const href = a.getAttribute('href');
+            if (href === '#') {
+                gsap.to(window, { duration: 1, scrollTo: { y: 0 }, ease: 'power3.inOut' });
+                return;
+            }
+            const target = document.querySelector(href);
             if (target) {
-                gsap.to(window, { duration: 0.8, scrollTo: { y: target, offsetY: 56 }, ease: 'power2.inOut' });
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: { y: target, offsetY: 56 },
+                    ease: 'power3.inOut'
+                });
             }
         });
     });
