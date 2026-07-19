@@ -210,6 +210,9 @@ body {
     cursor: pointer;
     transition: all 0.2s;
     border: none;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
 }
 
 .btn--primary {
@@ -470,17 +473,29 @@ body {
     margin-bottom: 24px;
     line-height: 1.4;
     letter-spacing: -0.02em;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
 }
 
 .contact__actions {
     display: flex;
     gap: 12px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
 }
 
 .contact__right {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.contact__info {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
 }
 
 .contact__info h4 {

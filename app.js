@@ -142,18 +142,7 @@ function initAnimations() {
     });
 
     // ---- Contact section ----
-    gsap.from('.contact__lead', {
-        opacity: 0, y: 30, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: '.contact__lead', start: 'top 90%' }
-    });
-    gsap.from('.contact__actions .btn', {
-        opacity: 0, y: 20, duration: 0.4, stagger: 0.08, ease: 'power2.out',
-        scrollTrigger: { trigger: '.contact__actions', start: 'top 92%' }
-    });
-    gsap.from('.contact__info', {
-        opacity: 0, y: 20, duration: 0.4, stagger: 0.08, ease: 'power2.out',
-        scrollTrigger: { trigger: '.contact__right', start: 'top 90%' }
-    });
+    // Cards forced visible via CSS
 
     // ---- Parallax on section titles ----
     gsap.utils.toArray('.section__title').forEach(title => {
