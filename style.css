@@ -134,7 +134,25 @@ body {
     font-size: 1rem;
     color: var(--text-secondary);
     max-width: 540px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
+}
+
+.hero-contact {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+}
+
+.hero-contact a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.hero-contact a:hover {
+    text-decoration: underline;
 }
 
 .hero-actions {
@@ -194,12 +212,26 @@ body {
     margin-bottom: 32px;
 }
 
+/* Two Column Layout */
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+}
+
 /* About */
 .about-content p {
     font-size: 1rem;
     color: var(--text-secondary);
     margin-bottom: 16px;
     max-width: 640px;
+}
+
+/* Education */
+.edu-item h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
 }
 
 /* Skills */
@@ -261,6 +293,10 @@ body {
     transform: translateY(-2px);
 }
 
+.project-card-full {
+    grid-column: 1 / -1;
+}
+
 .project-top {
     display: flex;
     justify-content: space-between;
@@ -317,6 +353,12 @@ body {
     margin-bottom: 24px;
 }
 
+.contact-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
 /* Footer */
 .footer {
     text-align: center;
@@ -344,11 +386,21 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .two-col {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
     .nav-links {
         gap: 16px;
     }
 
     .nav-links a {
         font-size: 0.8rem;
+    }
+
+    .hero-contact {
+        flex-direction: column;
+        gap: 8px;
     }
 }
