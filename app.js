@@ -109,7 +109,11 @@ function initAnimations() {
 
     gsap.from('.skill-group', { opacity: 0, y: 20, duration: 0.4, stagger: 0.08, scrollTrigger: { trigger: '.skills', start: 'top 85%' } });
 
-    gsap.from('.work__card', { opacity: 0, y: 20, duration: 0.4, stagger: 0.06, scrollTrigger: { trigger: '.work', start: 'top 85%' } });
+    gsap.fromTo('.work__card',
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out',
+          scrollTrigger: { trigger: '.work', start: 'top 90%' } }
+    );
 
     gsap.from('.contact__lead', { opacity: 0, y: 20, duration: 0.5, scrollTrigger: { trigger: '.contact__lead', start: 'top 88%' } });
     gsap.from('.contact__actions', { opacity: 0, y: 15, duration: 0.4, scrollTrigger: { trigger: '.contact__actions', start: 'top 90%' } });
