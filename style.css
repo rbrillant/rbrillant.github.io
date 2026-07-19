@@ -491,7 +491,7 @@ body {
 .projects-showcase {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
 }
 
 .project-item {
@@ -499,42 +499,51 @@ body {
     grid-template-columns: 50px 1fr 40px;
     gap: 20px;
     align-items: center;
-    background: rgba(94, 106, 210, 0.08);
-    border: 1px solid rgba(94, 106, 210, 0.3);
+    background: rgba(30, 30, 40, 0.95);
+    border: 2px solid rgba(94, 106, 210, 0.5);
     border-radius: var(--radius);
-    padding: 24px 28px;
+    padding: 28px 32px;
     text-decoration: none;
     color: inherit;
     transition: all 0.4s var(--easing);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .project-item:hover {
-    background: rgba(94, 106, 210, 0.18);
+    background: rgba(40, 40, 60, 0.98);
     border-color: var(--accent);
     transform: translateX(12px);
-    box-shadow: 0 4px 24px rgba(94, 106, 210, 0.2);
+    box-shadow: 0 8px 32px rgba(94, 106, 210, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .project-number {
     font-family: var(--font-heading);
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--accent);
+    background: rgba(94, 106, 210, 0.15);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid rgba(94, 106, 210, 0.3);
 }
 
 .project-info h3 {
     font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: var(--foreground);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #ffffff;
 }
 
 .project-info p {
-    font-size: 0.85rem;
-    color: var(--foreground-muted);
-    margin-bottom: 10px;
-    line-height: 1.5;
+    font-size: 0.88rem;
+    color: #b0b3bc;
+    margin-bottom: 12px;
+    line-height: 1.6;
 }
 
 .project-tech {
@@ -544,17 +553,17 @@ body {
 }
 
 .project-tech span {
-    font-size: 0.72rem;
-    padding: 4px 10px;
-    background: rgba(34, 197, 94, 0.18);
-    color: #6ee7a0;
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    background: rgba(34, 197, 94, 0.2);
+    color: #7eebb0;
     border-radius: 100px;
-    font-weight: 500;
-    border: 1px solid rgba(34, 197, 94, 0.3);
+    font-weight: 600;
+    border: 1px solid rgba(34, 197, 94, 0.4);
 }
 
 .project-arrow {
-    color: var(--foreground-muted);
+    color: #b0b3bc;
     transition: all 0.3s var(--easing);
 }
 
